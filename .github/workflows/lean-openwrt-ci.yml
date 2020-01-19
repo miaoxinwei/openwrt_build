@@ -75,6 +75,7 @@ jobs:
 
           cd feeds/lienol/lienol/
           rm -rf `ls | egrep -v '(luci-app-passwall|luci-app-v2ray-server|luci-app-trojan-server|luci-app-ipsec-vpnserver-manyusers|luci-app-pptp-vpnserver-manyusers|luci-app-fileassistant)'`
+          sed 's/par_queries = 2/par_queries = 1' luci-app-passwall/root/usr/share/passwall/app.sh
           cd ../../../
 
           rm -rf package/lean/v2ray
