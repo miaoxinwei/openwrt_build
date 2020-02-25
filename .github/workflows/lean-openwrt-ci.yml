@@ -71,6 +71,7 @@ jobs:
           rm -rf feeds/lienol/package/shadowsocksr-libev
           rm -rf feeds/lienol/package/pdnsd-alt
           rm -rf feeds/lienol/package/v2ray
+          rm -rf feeds/lienol/package/trojan
           rm -rf feeds/lienol/package/verysync
           rm -rf feeds/lienol/others/*
 
@@ -79,7 +80,6 @@ jobs:
           cd ../../../
 
           rm -rf package/lean/kcptun
-          rm -rf package/lean/trojan
           rm -rf package/lean/luci-app-pptp-server
           rm -rf package/lean/luci-app-v2ray-server
 
