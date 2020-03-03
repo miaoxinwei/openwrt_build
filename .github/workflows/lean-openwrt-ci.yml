@@ -76,12 +76,11 @@ jobs:
           rm -rf feeds/lienol/others/*
 
           cd feeds/lienol/lienol/
-          rm -rf `ls | egrep -v '(luci-app-passwall|luci-app-v2ray-server|luci-app-trojan-server|luci-app-ipsec-vpnserver-manyusers|luci-app-pptp-vpnserver-manyusers|luci-app-fileassistant)'`
+          rm -rf `ls | egrep -v '(luci-app-passwall|luci-app-trojan-server|luci-app-ipsec-vpnserver-manyusers|luci-app-pptp-vpnserver-manyusers|luci-app-fileassistant)'`
           cd ../../../
 
           rm -rf package/lean/kcptun
           rm -rf package/lean/luci-app-pptp-server
-          rm -rf package/lean/luci-app-v2ray-server
 
           ./scripts/feeds update -a
           ./scripts/feeds install -a
