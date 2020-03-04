@@ -71,8 +71,10 @@ jobs:
           rm -rf feeds/lienol/package/dns2socks
           rm -rf feeds/lienol/package/shadowsocksr-libev
           rm -rf feeds/lienol/package/pdnsd-alt
+          rm -rf feeds/lienol/package/kcptun
           rm -rf feeds/lienol/package/v2ray
           rm -rf feeds/lienol/package/v2ray-plugin
+          rm -rf feeds/lienol/package/simple-obfs
           rm -rf feeds/lienol/package/trojan
           rm -rf feeds/lienol/package/verysync
           rm -rf feeds/lienol/others/*
@@ -81,7 +83,6 @@ jobs:
           rm -rf `ls | egrep -v '(luci-app-passwall|luci-app-trojan-server|luci-app-ipsec-vpnserver-manyusers|luci-app-pptp-vpnserver-manyusers|luci-app-fileassistant)'`
           cd ../../../
 
-          rm -rf package/lean/kcptun
           rm -rf package/lean/luci-app-pptp-server
 
           ./scripts/feeds update -a
