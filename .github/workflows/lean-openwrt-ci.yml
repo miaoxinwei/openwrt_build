@@ -68,9 +68,11 @@ jobs:
 
           rm -rf feeds/lienol/package/openssl1.1
           rm -rf feeds/lienol/package/ipt2socks
+          rm -rf feeds/lienol/package/dns2socks
           rm -rf feeds/lienol/package/shadowsocksr-libev
           rm -rf feeds/lienol/package/pdnsd-alt
           rm -rf feeds/lienol/package/v2ray
+          rm -rf feeds/lienol/package/v2ray-plugin
           rm -rf feeds/lienol/package/trojan
           rm -rf feeds/lienol/package/verysync
           rm -rf feeds/lienol/others/*
