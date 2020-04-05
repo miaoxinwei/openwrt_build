@@ -11,7 +11,7 @@ workflows: [lean-openwrt-ci.yml](https://github.com/miaoxinwei/openwrt_build/blo
 
 构建触发方式: 修改[lean/buildInfo.yml](https://github.com/miaoxinwei/openwrt_build/blob/master/lean/buildInfo.yml) 中的内容.  
 
-[lean插件全集](https://www.right.com.cn/forum/thread-344825-1-1.html)  
+[lean插件全集](https://www.right.com.cn/forum/thread-3682029-1-1.html)  
 
 #### Lienol-openwrt
 [Lienol源码](https://github.com/Lienol/openwrt) (基于官方openwrt-19.07开发的openwrt)  构建的 x86_64 固件.  
