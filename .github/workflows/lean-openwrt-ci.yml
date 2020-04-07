@@ -19,9 +19,6 @@ on:
 #    schedule:
 #      - cron: 0 20 * * *
 
-env:
-  F_NAME: $(cat lean/buildInfo.yml | grep version | awk '{print $2}')
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -35,10 +32,11 @@ jobs:
       - name: 安装编译环境
         env:
           DEBIAN_FRONTEND: noninteractive
-          FILE_NAME: $(cat lean/buildInfo.yml | grep version | awk '{print $2}')
         run: |
+          FILE_NAME=$(cat lean/buildInfo.yml | grep version | awk '{print $2}')
+          echo "::set-env name=FIRMWARE::$FILE_NAME"
           echo $FILE_NAME
-          echo $F_NAME
+          echo $FIRMWARE
 
       #     sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d
       #     sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* mysql* php*
