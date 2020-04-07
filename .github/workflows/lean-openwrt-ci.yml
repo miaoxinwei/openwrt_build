@@ -43,7 +43,7 @@ jobs:
       - name: 上传固件
         uses: actions/upload-artifact@master
         with:
-          name: ${{ FIRMWARE }}
+          name: ${{ env.FIRMWARE }}
           path: ./
 
       #     sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d
