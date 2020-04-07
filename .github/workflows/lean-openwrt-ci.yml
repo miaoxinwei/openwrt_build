@@ -37,8 +37,8 @@ jobs:
           DEBIAN_FRONTEND: noninteractive
           FILE_NAME: $(cat lean/buildInfo.yml | grep version | awk '{print $2}')
         run: |
-          echo $env.FILE_NAME
-          echo $env.F_NAME
+          echo $FILE_NAME
+          echo $F_NAME
 
       #     sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d
       #     sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* mysql* php*
