@@ -35,6 +35,7 @@ jobs:
         run: |
           FILE_NAME=$(cat lean/buildInfo.yml | grep version | awk '{print $2}')
           export FIRMWARE=$FILE_NAME
+          echo "::set-env name=FIRMWARE::$FILE_NAME"
           echo $FILE_NAME
           echo $FIRMWARE
 
@@ -42,7 +43,7 @@ jobs:
       - name: 上传固件
         uses: actions/upload-artifact@master
         with:
-          name: ${{ env.FIRMWARE }}
+          name: ${{ FIRMWARE }}
           path: ./
 
       #     sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d
