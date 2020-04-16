@@ -63,7 +63,7 @@ jobs:
           cd openwrt
 
           echo -e "\nsrc-git helloworld https://github.com/fw876/helloworld" >> feeds.conf.default
-          echo -e "\nsrc-git lienol https://github.com/miaoxinwei/lienol-openwrt-package" >> feeds.conf.default
+          echo -e "\nsrc-git lienol https://github.com/miaoxinwei/openwrt-package-pass" >> feeds.conf.default
           echo -e "\nsrc-git miaoxw https://github.com/miaoxinwei/openwrt-package" >> feeds.conf.default
 
           ./scripts/feeds clean
