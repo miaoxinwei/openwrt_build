@@ -3,7 +3,7 @@
 ### 本项目包含2个构建Action
 
 #### lean-openwrt(持续跟进)
-[大雕源码](https://github.com/coolsnowwolf/lede) (基于lede开发的openwrt) 加上 [Lienol-Package](https://github.com/Lienol/openwrt-package) 构建的 x86_64 固件.  
+[lean源码](https://github.com/coolsnowwolf/lede) (基于lede开发的openwrt) 加上 [Lienol-Package](https://github.com/Lienol/openwrt-package) 构建的 x86_64 固件.  
 
 workflows: [lean-openwrt-ci.yml](https://github.com/miaoxinwei/openwrt_build/blob/master/.github/workflows/lean-openwrt-ci.yml)
 
