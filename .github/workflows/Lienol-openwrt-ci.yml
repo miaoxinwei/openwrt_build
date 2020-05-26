@@ -71,6 +71,8 @@ jobs:
           sed -i '$d' feeds.conf.default
           echo -e "\nsrc-git lienol https://github.com/miaoxinwei/openwrt-package-pass" >> feeds.conf.default
 
+          sed -i 's/4.14/4.19/' target/linux/x86/Makefile
+          
           ./scripts/feeds clean
           ./scripts/feeds update -a
           ./scripts/feeds install -a
