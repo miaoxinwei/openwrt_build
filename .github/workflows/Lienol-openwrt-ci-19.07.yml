@@ -1,0 +1,108 @@
+#=================================================
+# https://github.com/miaoxinwei/openwrt_build
+# Description: Build OpenWrt using GitHub Actions
+# Lisence: AGPL-3.0
+# Author: MXW
+#=================================================
+
+name: Lienol-19.07 固件
+
+on:
+  # watch:
+  #   types: [started]
+  
+  push:
+    branches:
+      - master
+    paths:
+      - 'Lienol/19.07/buildInfo.yml'
+#    schedule:
+#      - cron: 0 20 * * *
+
+env:
+  TZ: Asia/Shanghai
+
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 校验本地文件
+        uses: actions/checkout@master
+        with:
+          ref: master
+
+      - name: 安装编译环境
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          sudo swapoff /swapfile
+          sudo rm -rf /swapfile /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d
+          sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* mysql* php*
+          sudo -E apt-get -qq update
+          sudo -E apt-get -qq install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch python3.5 unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler g++-multilib antlr3 gperf
+          sudo -E apt-get -y autoremove --purge
+          sudo -E apt-get clean
+          
+          sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+          sudo timedatectl set-timezone "$TZ"
+
+          FILE_NAME=$(cat Lienol/19.07/buildInfo.yml | grep version | awk '{print $2}')
+          echo "::set-env name=FIRMWARE::$FILE_NAME"
+
+      - name: 克隆代码
+        env:
+          REPO_URL: https://github.com/Lienol/openwrt
+          REPO_BRANCH: dev-19.07
+        run: git clone $REPO_URL -b $REPO_BRANCH openwrt
+
+      - name: 自定义配置
+        env:
+          CUSTOM_SH: 'custom.sh'
+        run: |
+          cd openwrt
+          mv ../Lienol/$CUSTOM_SH ./ && chmod 777 $CUSTOM_SH && ./$CUSTOM_SH
+
+      - name: 构建程序包
+        run: |
+          cd openwrt
+          sed -i '$d' feeds.conf.default
+          echo -e "\nsrc-git lienol https://github.com/miaoxinwei/openwrt-package-pass" >> feeds.conf.default
+
+          sed -i 's/4.14/4.19/' target/linux/x86/Makefile
+          
+          ./scripts/feeds clean
+          ./scripts/feeds update -a
+          ./scripts/feeds install -a
+
+      - name: config文件
+        run: |
+          cd openwrt
+          rm -f .config*
+          cp ../Lienol/19.07/x86_64.config .config
+          make defconfig
+
+      - name: 下载编译所需源码
+        run: |
+          cd openwrt
+          make download -j8
+          find dl -size -1024c -exec rm -f {} \;
+
+      - name: 进行固件编译
+        run: |
+          cd openwrt
+          make -j$(nproc) || make -j1 V=s
+
+      - name: 清理不必要的文件
+        run: |
+          cd openwrt
+          find ./bin/targets/ -type d -name "packages" | xargs rm -rf {}
+          find ./bin/targets/ -name "*rootfs*img*" | xargs rm -rf {}
+
+      - name: 上传固件
+        uses: actions/upload-artifact@master
+        with:
+          name: ${{ env.FIRMWARE }}
+          path: ./openwrt/bin/targets/
