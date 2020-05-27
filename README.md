@@ -28,7 +28,7 @@ workflows: [Lienol-19.07](https://github.com/miaoxinwei/openwrt_build/blob/maste
 
 ##### master
 
-[源码](https://github.com/Lienol/openwrt/tree/dev-master) (基于官方openwrt 19.07 开发的openwrt)  构建的 x86_64 固件.  
+[源码](https://github.com/Lienol/openwrt/tree/dev-master) (基于官方openwrt master 开发的openwrt)  构建的 x86_64 固件.  
 
 workflows: [Lienol-master](https://github.com/miaoxinwei/openwrt_build/blob/master/.github/workflows/Lienol-openwrt-ci-master.yml)
 
