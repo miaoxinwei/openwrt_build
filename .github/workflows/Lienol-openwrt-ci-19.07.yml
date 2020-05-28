@@ -63,7 +63,7 @@ jobs:
           CUSTOM_SH: 'custom.sh'
         run: |
           cd openwrt
-          mv ../Lienol/$CUSTOM_SH ./ && chmod 777 $CUSTOM_SH && ./$CUSTOM_SH
+          mv ../Lienol/19.07/$CUSTOM_SH ./ && chmod 777 $CUSTOM_SH && ./$CUSTOM_SH
 
       - name: 构建程序包
         run: |
