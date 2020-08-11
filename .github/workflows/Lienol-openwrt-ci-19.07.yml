@@ -73,6 +73,7 @@ jobs:
           echo -e "src-git luci https://github.com/Lienol/openwrt-luci.git;dev-17.01" >> feeds.conf.default
           echo -e "src-git diy1 https://github.com/xiaorouji/openwrt-package.git;master" >> feeds.conf.default
           echo -e "src-git miaoxw https://github.com/miaoxinwei/openwrt-package" >> feeds.conf.default
+          echo -e "src-git clash https://github.com/vernesong/OpenClash;master" >> feeds.conf.default
 
           sed -i 's/4.14/4.19/' target/linux/x86/Makefile
           
