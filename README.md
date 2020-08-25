@@ -1,5 +1,13 @@
 # openwrt_build
 
+### 推荐插件
+
+[Lienol-Package](https://github.com/xiaorouji/openwrt-package)
+
+[helloworld](https://github.com/fw876/helloworld)
+
+[openclash](https://github.com/vernesong/OpenClash/tree/master)
+
 ### 本项目包含3个构建Action
 
 
@@ -28,7 +36,7 @@ workflows: [Lienol-master](https://github.com/miaoxinwei/openwrt_build/blob/mast
 
 
 #### lean-openwrt(暂停更新)
-[lean源码](https://github.com/coolsnowwolf/lede) (基于lede开发的openwrt) 加上 [Lienol-Package](https://github.com/Lienol/openwrt-package) , [helloworld](https://github.com/fw876/helloworld) 构建的 x86_64 固件.  
+[lean源码](https://github.com/coolsnowwolf/lede) (基于lede开发的openwrt) 构建的 x86_64 固件.  
 
 workflows: [lean-openwrt-ci.yml](https://github.com/miaoxinwei/openwrt_build/blob/master/.github/workflows/lean-openwrt-ci.yml)
 
