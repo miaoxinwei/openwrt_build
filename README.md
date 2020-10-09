@@ -15,7 +15,7 @@
 
 ##### 19.07
 
-[源码](https://github.com/Lienol/openwrt/tree/dev-19.07) (基于官方openwrt 19.07 开发的openwrt)  构建的 x86_64 固件.  
+[源码](https://github.com/Lienol/openwrt/tree/19.07) (基于官方openwrt 19.07 开发的openwrt)  构建的 x86_64 固件.  
 
 workflows: [Lienol-19.07](https://github.com/miaoxinwei/openwrt_build/blob/master/.github/workflows/Lienol-openwrt-ci-19.07.yml)
 
