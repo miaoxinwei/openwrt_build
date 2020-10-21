@@ -49,7 +49,7 @@ jobs:
           sudo timedatectl set-timezone "$TZ"
 
           FILE_NAME=$(cat Lienol/19.07/buildInfo.yml | grep version | awk '{print $2}')
-          echo "::set-env name=FIRMWARE::$FILE_NAME"
+          echo "::addPath name=FIRMWARE::$FILE_NAME"
 
       - name: 克隆代码
         env:
