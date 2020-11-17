@@ -21,7 +21,7 @@ on:
 
 env:
   TZ: Asia/Shanghai
-  ACTIONS_ALLOW_UNSECURE_COMMANDS:  true
+  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
 
 
