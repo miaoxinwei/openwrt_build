@@ -2,7 +2,7 @@
 
 ### 推荐插件
 
-[Lienol-Package](https://github.com/xiaorouji/openwrt-package)
+[Lienol-Passwall](https://github.com/xiaorouji/openwrt-passwall)
 
 [helloworld](https://github.com/fw876/helloworld)
 
