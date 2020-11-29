@@ -4,6 +4,8 @@
 
 [Lienol-Passwall](https://github.com/xiaorouji/openwrt-passwall)
 
+[openwrt-package](https://github.com/Lienol/openwrt-package)
+
 [helloworld](https://github.com/fw876/helloworld)
 
 [openclash](https://github.com/vernesong/OpenClash/tree/master)
