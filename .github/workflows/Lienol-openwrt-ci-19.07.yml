@@ -76,15 +76,12 @@ jobs:
           echo -e "src-git diy1 https://github.com/xiaorouji/openwrt-passwall.git;main" >> feeds.conf.default
           echo -e "src-git freifunk https://github.com/freifunk/openwrt-packages.git;openwrt-19.07" >> feeds.conf.default
           echo -e "src-git miaoxw https://github.com/miaoxinwei/openwrt-package" >> feeds.conf.default
-          echo -e "src-git clash https://github.com/vernesong/OpenClash;master" >> feeds.conf.default
 
           sed -i 's/4.14/4.19/' target/linux/x86/Makefile
           
           ./scripts/feeds clean
           ./scripts/feeds update -a
           ./scripts/feeds install -a
-          rm -rf feeds/packages/libs/libcap
-          svn co https://github.com/openwrt/packages/trunk/libs/libcap feeds/packages/libs/libcap
 
       - name: config文件
         run: |
