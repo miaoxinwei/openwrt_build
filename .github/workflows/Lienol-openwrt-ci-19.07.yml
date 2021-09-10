@@ -77,6 +77,7 @@ jobs:
           echo -e "src-git freifunk https://github.com/freifunk/openwrt-packages.git;openwrt-19.07" >> feeds.conf.default
           echo -e "src-git miaoxw https://github.com/miaoxinwei/openwrt-package" >> feeds.conf.default
 
+          sed -i 's/4.9/4.19/' target/linux/x86/Makefile
           sed -i 's/4.14/4.19/' target/linux/x86/Makefile
           
           ./scripts/feeds clean
