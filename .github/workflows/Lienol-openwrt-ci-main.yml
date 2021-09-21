@@ -21,6 +21,7 @@ on:
 
 env:
   TZ: Asia/Shanghai
+  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
 
 
@@ -30,7 +31,7 @@ jobs:
 
     steps:
       - name: 校验本地文件
-        uses: actions/checkout@master
+        uses: actions/checkout@v2
         with:
           ref: master
 
@@ -48,13 +49,13 @@ jobs:
           sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
           sudo timedatectl set-timezone "$TZ"
 
-          FILE_NAME=$(cat Lienol/master/buildInfo.yml | grep version | awk '{print $2}')
+          FILE_NAME=$(cat Lienol/main/buildInfo.yml | grep version | awk '{print $2}')
           echo "::set-env name=FIRMWARE::$FILE_NAME"
 
       - name: 克隆代码
         env:
           REPO_URL: https://github.com/Lienol/openwrt
-          REPO_BRANCH: dev-master
+          REPO_BRANCH: main
         run: git clone $REPO_URL -b $REPO_BRANCH openwrt
 
       - name: 自定义配置
@@ -62,17 +63,18 @@ jobs:
           CUSTOM_SH: 'custom.sh'
         run: |
           cd openwrt
-          mv ../Lienol/master/$CUSTOM_SH ./ && chmod 777 $CUSTOM_SH && ./$CUSTOM_SH
+          mv ../Lienol/main/$CUSTOM_SH ./ && chmod 777 $CUSTOM_SH && ./$CUSTOM_SH
 
       - name: 构建程序包
         run: |
           cd openwrt
-          echo "src-git packages https://github.com/Lienol/openwrt-packages.git;dev-master" > feeds.conf.default
+          echo "src-git packages https://github.com/Lienol/openwrt-packages.git;main" > feeds.conf.default
+          echo -e "src-git luci https://github.com/Lienol/openwrt-luci.git;18.06-dev" >> feeds.conf.default
           echo -e "src-git routing https://git.openwrt.org/feed/routing.git" >> feeds.conf.default
           echo -e "src-git telephony https://git.openwrt.org/feed/telephony.git" >> feeds.conf.default
-          echo -e "src-git luci https://github.com/Lienol/openwrt-luci.git;dev-17.01" >> feeds.conf.default
-          echo -e "src-git lienol https://github.com/miaoxinwei/openwrt-package-pass" >> feeds.conf.default
-          echo -e "src-git freifunk https://github.com/freifunk/openwrt-packages.git" >> feeds.conf.default
+          echo -e "src-git lienol https://github.com/Lienol/openwrt-package.git;main" >> feeds.conf.default
+          echo -e "src-git diy1 https://github.com/xiaorouji/openwrt-passwall.git;main" >> feeds.conf.default
+          echo -e "src-git miaoxw https://github.com/miaoxinwei/openwrt-package" >> feeds.conf.default
           
           ./scripts/feeds clean
           ./scripts/feeds update -a
@@ -82,7 +84,7 @@ jobs:
         run: |
           cd openwrt
           rm -f .config*
-          cp ../Lienol/master/x86_64.config .config
+          cp ../Lienol/main/x86_64.config .config
           make defconfig
 
       - name: 下载编译所需源码
@@ -110,7 +112,7 @@ jobs:
           find ./bin/targets/ -name "*rootfs*img*" | xargs rm -rf {}
 
       - name: 上传固件
-        uses: actions/upload-artifact@master
+        uses: actions/upload-artifact@v2
         with:
           name: ${{ env.FIRMWARE }}
           path: ./openwrt/bin/targets/
