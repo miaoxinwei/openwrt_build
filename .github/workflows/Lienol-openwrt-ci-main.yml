@@ -15,7 +15,7 @@ on:
     branches:
       - master
     paths:
-      - 'Lienol/master/buildInfo.yml'
+      - 'Lienol/main/buildInfo.yml'
 #    schedule:
 #      - cron: 0 20 * * *
 
