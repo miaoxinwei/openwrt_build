@@ -14,6 +14,15 @@
 
 
 #### Lienol-openwrt(持续跟进)
+##### main
+
+[源码](https://github.com/Lienol/openwrt/tree/main) (基于官方openwrt master 开发的openwrt)  构建的 x86_64 固件.  
+
+workflows: [Lienol-main](https://github.com/miaoxinwei/openwrt_build/blob/master/.github/workflows/Lienol-openwrt-ci-main.yml)
+
+包含的组件请于 [Lienol/main/x86_64.config](https://github.com/miaoxinwei/openwrt_build/blob/master/Lienol/main/x86_64.config) 中查看.  
+
+构建触发方式: 修改 [Lienol/main/buildInfo.yml](https://github.com/miaoxinwei/openwrt_build/blob/master/Lienol/main/buildInfo.yml) 中的内容.  
 
 ##### 19.07
 
@@ -25,15 +34,7 @@ workflows: [Lienol-19.07](https://github.com/miaoxinwei/openwrt_build/blob/maste
 
 构建触发方式: 修改 [Lienol/19.07/buildInfo.yml](https://github.com/miaoxinwei/openwrt_build/blob/master/Lienol/19.07/buildInfo.yml) 中的内容.  
 
-##### main
 
-[源码](https://github.com/Lienol/openwrt/tree/main) (基于官方openwrt master 开发的openwrt)  构建的 x86_64 固件.  
-
-workflows: [Lienol-main](https://github.com/miaoxinwei/openwrt_build/blob/master/.github/workflows/Lienol-openwrt-ci-main.yml)
-
-包含的组件请于 [Lienol/main/x86_64.config](https://github.com/miaoxinwei/openwrt_build/blob/master/Lienol/main/x86_64.config) 中查看.  
-
-构建触发方式: 修改 [Lienol/main/buildInfo.yml](https://github.com/miaoxinwei/openwrt_build/blob/master/Lienol/main/buildInfo.yml) 中的内容.  
 
 
 
