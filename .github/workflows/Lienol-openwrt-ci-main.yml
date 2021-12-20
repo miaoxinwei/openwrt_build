@@ -66,7 +66,7 @@ jobs:
         run: |
           cd openwrt
           echo "src-git packages https://github.com/Lienol/openwrt-packages.git;main" > feeds.conf.default
-          echo -e "src-git luci https://github.com/Lienol/openwrt-luci.git;18.06" >> feeds.conf.default
+          echo -e "src-git luci https://github.com/Lienol/openwrt-luci.git;main" >> feeds.conf.default
           echo -e "src-git routing https://git.openwrt.org/feed/routing.git" >> feeds.conf.default
           echo -e "src-git telephony https://git.openwrt.org/feed/telephony.git" >> feeds.conf.default
           echo -e "src-git lienol https://github.com/Lienol/openwrt-package.git;main" >> feeds.conf.default
