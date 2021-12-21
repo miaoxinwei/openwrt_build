@@ -75,6 +75,7 @@ jobs:
           
           ./scripts/feeds clean
           ./scripts/feeds update -a
+          rm -rf feeds/packages/net/xray-core
           ./scripts/feeds install -a
 
       - name: config文件
