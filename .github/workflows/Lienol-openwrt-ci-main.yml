@@ -65,19 +65,18 @@ jobs:
       - name: 构建程序包
         run: |
           cd openwrt
-          echo "src-git packages https://github.com/Lienol/openwrt-packages.git;main" > feeds.conf.default
+          echo "src-git diy1 https://github.com/xiaorouji/openwrt-passwall.git;main" > feeds.conf.default
+          # echo "src-git packages https://github.com/Lienol/openwrt-packages.git;main" > feeds.conf.default
+          echo -e "src-git packages https://github.com/Lienol/openwrt-packages.git;main" >> feeds.conf.default
           echo -e "src-git luci https://github.com/Lienol/openwrt-luci.git;18.06" >> feeds.conf.default
           echo -e "src-git routing https://git.openwrt.org/feed/routing.git" >> feeds.conf.default
           echo -e "src-git telephony https://git.openwrt.org/feed/telephony.git" >> feeds.conf.default
           echo -e "src-git lienol https://github.com/Lienol/openwrt-package.git;main" >> feeds.conf.default
           echo -e "src-git other https://github.com/Lienol/openwrt-package.git;other" >> feeds.conf.default
-          echo -e "src-git diy1 https://github.com/xiaorouji/openwrt-passwall.git;main" >> feeds.conf.default
+          # echo -e "src-git diy1 https://github.com/xiaorouji/openwrt-passwall.git;main" >> feeds.conf.default
           
           ./scripts/feeds clean
           ./scripts/feeds update -a
-          rm -rf feeds/packages/net/xray-core
-          # sed -i "s/xray/Xray" feeds/diy1/luci-app-passwall/Makefile
-          # mv feeds/diy1/xray-core feeds/diy1/Xray-core
           ./scripts/feeds install -a
 
       - name: config文件
