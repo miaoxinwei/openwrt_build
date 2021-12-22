@@ -76,6 +76,8 @@ jobs:
           ./scripts/feeds clean
           ./scripts/feeds update -a
           rm -rf feeds/packages/net/xray-core
+          sed -i "s/xray/Xray/g" feeds/diy1/luci-app-passwall/Makefile
+          mv feeds/diy1/xray-core feeds/diy1/Xray-core
           ./scripts/feeds install -a
 
       - name: config文件
