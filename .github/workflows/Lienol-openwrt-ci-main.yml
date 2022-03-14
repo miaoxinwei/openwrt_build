@@ -66,15 +66,13 @@ jobs:
         run: |
           cd openwrt
           echo "src-git diy1 https://github.com/xiaorouji/openwrt-passwall.git;packages" > feeds.conf.default
-          echo -e "src-git diy2 https://github.com/xiaorouji/openwrt-passwall2.git;main" > feeds.conf.default
-          # echo "src-git packages https://github.com/Lienol/openwrt-packages.git;main" > feeds.conf.default
+          echo -e "src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;luci" > feeds.conf.default
           echo -e "src-git packages https://github.com/Lienol/openwrt-packages.git;main" >> feeds.conf.default
           echo -e "src-git luci https://github.com/Lienol/openwrt-luci.git;18.06" >> feeds.conf.default
           echo -e "src-git routing https://git.openwrt.org/feed/routing.git" >> feeds.conf.default
           echo -e "src-git telephony https://git.openwrt.org/feed/telephony.git" >> feeds.conf.default
           echo -e "src-git lienol https://github.com/Lienol/openwrt-package.git;main" >> feeds.conf.default
           echo -e "src-git other https://github.com/Lienol/openwrt-package.git;other" >> feeds.conf.default
-          # echo -e "src-git diy1 https://github.com/xiaorouji/openwrt-passwall.git;main" >> feeds.conf.default
           
           ./scripts/feeds clean
           ./scripts/feeds update -a
