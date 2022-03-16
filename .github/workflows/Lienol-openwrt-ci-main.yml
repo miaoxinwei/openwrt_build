@@ -76,6 +76,7 @@ jobs:
           
           ./scripts/feeds clean
           ./scripts/feeds update -a
+          mv -f passwall/* diy1/
           ./scripts/feeds install -a
 
       - name: config文件
