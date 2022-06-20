@@ -61,8 +61,6 @@ jobs:
         run: |
           cd openwrt
           mv ../Lienol/master/$CUSTOM_SH ./ && chmod 777 $CUSTOM_SH && ./$CUSTOM_SH
-          cd target/linux/x86
-          sed -i 's/5.10/5.15/' Makefile
 
       - name: 构建程序包
         run: |
