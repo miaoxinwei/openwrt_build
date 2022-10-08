@@ -24,15 +24,15 @@ workflows: [Lienol-master](https://github.com/miaoxinwei/openwrt_build/blob/mast
 
 构建触发方式: 修改 [Lienol/master/buildInfo.yml](https://github.com/miaoxinwei/openwrt_build/blob/master/Lienol/master/buildInfo.yml) 中的内容.  
 
-##### 19.07
+##### 21.02
 
-[源码](https://github.com/Lienol/openwrt/tree/19.07) (基于官方openwrt 19.07 开发的openwrt)  构建的 x86_64 固件.  
+[源码](https://github.com/Lienol/openwrt/tree/21.02) (基于官方openwrt 21.02 开发的openwrt)  构建的 x86_64 固件.  
 
-workflows: [Lienol-19.07](https://github.com/miaoxinwei/openwrt_build/blob/master/.github/workflows/Lienol-openwrt-ci-19.07.yml)
+workflows: [Lienol-21.02](https://github.com/miaoxinwei/openwrt_build/blob/master/.github/workflows/Lienol-openwrt-ci-21.02.yml)
 
-包含的组件请于 [Lienol/19.07/x86_64.config](https://github.com/miaoxinwei/openwrt_build/blob/master/Lienol/19.07/x86_64.config) 中查看.  
+包含的组件请于 [Lienol/21.02/x86_64.config](https://github.com/miaoxinwei/openwrt_build/blob/master/Lienol/21.02/x86_64.config) 中查看.  
 
-构建触发方式: 修改 [Lienol/19.07/buildInfo.yml](https://github.com/miaoxinwei/openwrt_build/blob/master/Lienol/19.07/buildInfo.yml) 中的内容.  
+构建触发方式: 修改 [Lienol/21.02/buildInfo.yml](https://github.com/miaoxinwei/openwrt_build/blob/master/Lienol/21.02/buildInfo.yml) 中的内容.  
 
 
 
