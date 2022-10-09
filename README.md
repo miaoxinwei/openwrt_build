@@ -14,16 +14,6 @@
 
 
 #### Lienol-openwrt(持续跟进)
-##### master
-
-[源码](https://github.com/Lienol/openwrt/tree/master) (基于官方openwrt master 开发的openwrt)  构建的 x86_64 固件.  
-
-workflows: [Lienol-master](https://github.com/miaoxinwei/openwrt_build/blob/master/.github/workflows/Lienol-openwrt-ci-master.yml)
-
-包含的组件请于 [Lienol/master/x86_64.config](https://github.com/miaoxinwei/openwrt_build/blob/master/Lienol/master/x86_64.config) 中查看.  
-
-构建触发方式: 修改 [Lienol/master/buildInfo.yml](https://github.com/miaoxinwei/openwrt_build/blob/master/Lienol/master/buildInfo.yml) 中的内容.  
-
 ##### 21.02
 
 [源码](https://github.com/Lienol/openwrt/tree/21.02) (基于官方openwrt 21.02 开发的openwrt)  构建的 x86_64 固件.  
@@ -34,6 +24,17 @@ workflows: [Lienol-21.02](https://github.com/miaoxinwei/openwrt_build/blob/maste
 
 构建触发方式: 修改 [Lienol/21.02/buildInfo.yml](https://github.com/miaoxinwei/openwrt_build/blob/master/Lienol/21.02/buildInfo.yml) 中的内容.  
 
+
+
+##### master
+
+[源码](https://github.com/Lienol/openwrt/tree/master) (基于官方openwrt master 开发的openwrt)  构建的 x86_64 固件.  
+
+workflows: [Lienol-master](https://github.com/miaoxinwei/openwrt_build/blob/master/.github/workflows/Lienol-openwrt-ci-master.yml)
+
+包含的组件请于 [Lienol/master/x86_64.config](https://github.com/miaoxinwei/openwrt_build/blob/master/Lienol/master/x86_64.config) 中查看.  
+
+构建触发方式: 修改 [Lienol/master/buildInfo.yml](https://github.com/miaoxinwei/openwrt_build/blob/master/Lienol/master/buildInfo.yml) 中的内容.  
 
 
 
