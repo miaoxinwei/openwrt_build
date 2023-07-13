@@ -16,7 +16,7 @@
 
 ##### 22.03
 
-[源码](https://github.com/Lienol/openwrt/tree/21.02) (基于官方openwrt 22.03 开发的openwrt)  构建的 x86_64 固件.  
+[源码](https://github.com/Lienol/openwrt/tree/22.03) (基于官方openwrt 22.03 开发的openwrt)  构建的 x86_64 固件.  
 
 workflows: [Lienol-22.03](https://github.com/miaoxinwei/openwrt_build/blob/master/.github/workflows/Lienol-openwrt-ci-22.03.yml)
 
