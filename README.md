@@ -2,7 +2,7 @@
 
 ### 推荐插件
 
-[openwrt-passwall](https://github.com/xiaorouji/openwrt-passwall/tree/luci)、[openwrt-passwall2](https://github.com/xiaorouji/openwrt-passwall2)
+[openwrt-passwall](https://github.com/xiaorouji/openwrt-passwall/tree/main)、[openwrt-passwall2](https://github.com/xiaorouji/openwrt-passwall2)
 
 [openwrt-package](https://github.com/Lienol/openwrt-package)
 
