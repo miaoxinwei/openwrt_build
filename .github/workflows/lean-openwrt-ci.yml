@@ -21,6 +21,7 @@ on:
 
 env:
   TZ: Asia/Shanghai
+  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
   
 
 
@@ -30,26 +31,27 @@ jobs:
 
     steps:
       - name: 校验本地文件
-        uses: actions/checkout@master
-        with:
-          ref: master
+        uses: actions/checkout@v3
 
       - name: 安装编译环境
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
-          sudo swapoff /swapfile
-          sudo rm -rf /swapfile /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d
-          sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* mysql* php*
-          sudo -E apt-get -qq update
-          sudo -E apt-get -qq install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch python3.5 unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler g++-multilib antlr3 gperf
-          sudo -E apt-get -y autoremove --purge
-          sudo -E apt-get clean
+          docker rmi `docker images -q`
+          sudo -E rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
+          sudo -E apt-mark hold grub-efi-amd64-signed
+          sudo -E apt update
+          sudo -E apt -y purge azure-cli* docker* ghc* zulu* llvm* firefox google* dotnet* powershell* openjdk* mysql* php* mongodb* dotnet* snap*
+          sudo -E apt -y full-upgrade
+          sudo -E apt -y install ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libreadline-dev libssl-dev libtool lrzsz mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pyelftools libpython3-dev qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev python3-setuptools
+          sudo -E systemctl daemon-reload
+          sudo -E apt -y autoremove --purge
+          sudo -E apt clean
           
           sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-          sudo timedatectl set-timezone "$TZ"
+          sudo -E timedatectl set-timezone "$TZ"
 
-          FILE_NAME=$(cat lean/buildInfo.yml | grep version | awk '{print $2}')
+          FILE_NAME=lean-$(cat lean/buildInfo.yml | grep version | awk '{print $2}')
           echo "::set-env name=FIRMWARE::$FILE_NAME"
 
       - name: 克隆代码
@@ -68,34 +70,14 @@ jobs:
       - name: 构建程序包
         run: |
           cd openwrt
-
-          echo -e "\nsrc-git helloworld https://github.com/fw876/helloworld" >> feeds.conf.default
-          echo -e "\nsrc-git lienol https://github.com/miaoxinwei/openwrt-package-pass" >> feeds.conf.default
-          echo -e "\nsrc-git miaoxw https://github.com/miaoxinwei/openwrt-package" >> feeds.conf.default
+          echo "src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main" > feeds.conf.default
+          echo -e "src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main" >> feeds.conf.default
+          echo -e "src-git packages https://github.com/coolsnowwolf/packages" >> feeds.conf.default
+          echo -e "src-git luci https://github.com/coolsnowwolf/luci" >> feeds.conf.default
+          echo -e "src-git routing https://github.com/coolsnowwolf/routing" >> feeds.conf.default
+          echo -e "src-git telephony https://git.openwrt.org/feed/telephony.git" >> feeds.conf.default
 
           ./scripts/feeds clean
-          ./scripts/feeds update -a
-
-          rm -rf feeds/lienol/package/openssl1.1
-          rm -rf feeds/lienol/package/dns2socks
-          rm -rf feeds/lienol/package/redsocks2
-          rm -rf feeds/lienol/package/shadowsocksr-libev
-          rm -rf feeds/lienol/package/pdnsd-alt
-          rm -rf feeds/lienol/package/kcptun
-          rm -rf feeds/lienol/package/v2ray
-          rm -rf feeds/lienol/package/v2ray-plugin
-          rm -rf feeds/lienol/package/simple-obfs
-          rm -rf feeds/lienol/package/trojan
-          rm -rf feeds/lienol/package/verysync
-          rm -rf feeds/lienol/others/*
-
-          cd feeds/lienol/lienol/
-          rm -rf `ls | egrep -v '(luci-app-passwall|luci-app-trojan-server|luci-app-ipsec-vpnserver-manyusers|luci-app-pptp-vpnserver-manyusers|luci-app-fileassistant)'`
-          cd ../../../
-
-          rm -rf package/lean/luci-app-pptp-server
-          rm -rf package/lean/ipt2socks
-
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 
@@ -109,13 +91,20 @@ jobs:
       - name: 下载编译所需源码
         run: |
           cd openwrt
-          make download -j8
+          make download -j16
           find dl -size -1024c -exec rm -f {} \;
 
-      - name: 进行固件编译
+      - name: 多线程编译
         run: |
           cd openwrt
-          make -j$(nproc) || make -j1 V=s
+          echo -e "$(nproc) thread build."
+          make -j$(nproc) V=s
+
+      - name: 单线程编译
+        if: failure()
+        run: |
+          cd openwrt
+          make -j1 V=s
 
       - name: 清理不必要的文件
         run: |
@@ -124,7 +113,7 @@ jobs:
           find ./bin/targets/ -name "*rootfs*img*" | xargs rm -rf {}
 
       - name: 上传固件
-        uses: actions/upload-artifact@master
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ env.FIRMWARE }}
           path: ./openwrt/bin/targets/
