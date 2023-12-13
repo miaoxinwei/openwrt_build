@@ -111,6 +111,7 @@ jobs:
           cd openwrt
           find ./bin/targets/ -type d -name "packages" | xargs rm -rf {}
           find ./bin/targets/ -name "*rootfs*img*" | xargs rm -rf {}
+          find ./bin/targets/ -name "*efi*img*" | xargs rm -rf {}
 
       - name: 上传固件
         uses: actions/upload-artifact@v3
