@@ -94,17 +94,17 @@ jobs:
           make download -j8
           find dl -size -1024c -exec rm -f {} \;
 
-      - name: 单线程编译
-        run: |
-          cd openwrt
-          make -j1 V=s
-
       - name: 多线程编译
-        if: failure()
         run: |
           cd openwrt
           echo -e "$(nproc) thread build."
           make -j$(nproc) V=s
+
+      - name: 单线程编译
+        if: failure()
+        run: |
+          cd openwrt
+          make -j1 V=s
 
       - name: 清理不必要的文件
         run: |
