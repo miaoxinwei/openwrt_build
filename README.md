@@ -21,7 +21,6 @@ workflows: [lean-openwrt-ci.yml](https://github.com/miaoxinwei/openwrt_build/blo
 
 构建触发方式: 修改 [lean/buildInfo.yml](https://github.com/miaoxinwei/openwrt_build/blob/master/lean/buildInfo.yml) 中的内容.  
 
-[lean插件全集](https://www.right.com.cn/forum/thread-3682029-1-1.html)  
 
 
 
