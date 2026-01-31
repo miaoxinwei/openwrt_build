@@ -2,7 +2,7 @@
 
 ### 推荐插件
 
-[openwrt-passwall](https://github.com/xiaorouji/openwrt-passwall/tree/main)、[openwrt-passwall2](https://github.com/xiaorouji/openwrt-passwall2)、[openwrt-passwall-packages](https://github.com/xiaorouji/openwrt-passwall-packages)
+[openwrt-passwall](https://github.com/Openwrt-Passwall/openwrt-passwall/tree/main)、[openwrt-passwall2](https://github.com/Openwrt-Passwall/openwrt-passwall2)、[openwrt-passwall-packages](https://github.com/Openwrt-Passwall/openwrt-passwall-packages)
 
 [helloworld](https://github.com/fw876/helloworld)
 
