@@ -30,19 +30,17 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-      - name: 校验本地文件
-        uses: actions/checkout@v4
-
       - name: 安装编译环境
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
+          docker image prune -f
           sudo -E rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
           sudo -E apt-mark hold grub-efi-amd64-signed
-          sudo -E apt update -y
+          sudo -E apt -y update
           sudo -E apt -y purge azure-cli* docker* ghc* zulu* llvm* firefox google* dotnet* powershell* openjdk* mysql* php* mongodb* dotnet* snap*
           sudo -E apt -y full-upgrade
-          sudo -E apt install -y ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libfuse-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libpython3-dev libreadline-dev libssl-dev libtool lrzsz mkisofs msmtp ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pyelftools python3-setuptools qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
+          sudo -E apt -y install ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache clang cmake cpio curl device-tree-compiler flex gawk gcc-multilib g++-multilib gettext genisoimage git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libfuse-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libpython3-dev libreadline-dev libssl-dev libtool llvm lrzsz msmtp ninja-build p7zip p7zip-full patch pkgconf python3 python3-pyelftools python3-setuptools qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
           sudo -E systemctl daemon-reload
           sudo -E apt -y autoremove --purge
           sudo -E apt clean
@@ -52,6 +50,23 @@ jobs:
 
           FILE_NAME=lean-$(cat lean/buildInfo.yml | grep version | awk '{print $2}')
           echo "::set-env name=FIRMWARE::$FILE_NAME"
+
+      - name: 校验本地文件
+        uses: actions/checkout@v4
+
+      - name: 可用磁盘空间 (Ubuntu)
+        uses: jlumbroso/free-disk-space@main
+        with:
+          # this might remove tools that are actually needed,
+          # if set to "true" but frees about 6 GB
+          tool-cache: true
+          # all of these default to true, but feel free to set to
+          # "false" if necessary for your workflow
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          swap-storage: true
           
       - name: 克隆代码
         env:
@@ -59,12 +74,12 @@ jobs:
           REPO_BRANCH: master
         run: git clone $REPO_URL -b $REPO_BRANCH openwrt
 
-      - name: 自定义配置
-        env:
-          CUSTOM_SH: 'custom.sh'
-        run: |
-          cd openwrt
-          mv ../lean/$CUSTOM_SH ./ && chmod 777 $CUSTOM_SH && ./$CUSTOM_SH
+#      - name: 自定义配置
+#        env:
+#          CUSTOM_SH: 'custom.sh'
+#        run: |
+#          cd openwrt
+#          mv ../lean/$CUSTOM_SH ./ && chmod 777 $CUSTOM_SH && ./$CUSTOM_SH
 
       - name: 构建程序包
         run: |
