@@ -76,7 +76,7 @@ jobs:
           echo -e "src-git routing https://github.com/coolsnowwolf/routing" >> feeds.conf.default
           echo -e "src-git telephony https://github.com/coolsnowwolf/telephony.git" >> feeds.conf.default
 
-          sed -i 's/6.6/6.12/g' target/linux/x86/Makefile
+          sed -i 's/6.12/6.18/g' target/linux/x86/Makefile
 
           ./scripts/feeds clean
           ./scripts/feeds update -a
