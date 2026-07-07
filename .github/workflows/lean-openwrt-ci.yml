@@ -84,6 +84,10 @@ jobs:
           # 更新 golang 1.25 版本
           rm -rf feeds/packages/lang/golang
           git clone https://github.com/sbwml/packages_lang_golang -b 25.x feeds/packages/lang/golang
+          # 修复vim问题
+          perl -0777 -i -pe 's/\$\(CP\)\s+\$\(PKG_INSTALL_DIR\)\/usr\/share\/vim\/vim\$\(VIMVER\)\s+\\\s*\n\s*\$\(1\)\/usr\/share\/vim/\$(CP) \$(PKG_INSTALL_DIR)\/usr\/share\/vim\/* \$(1)\/usr\/share\/vim\//g' \
+          feeds/packages/utils/vim/Makefile
+          
           ./scripts/feeds install -a
 
       - name: config文件
@@ -91,13 +95,6 @@ jobs:
           cd openwrt
           rm -f .config*
           cp ../lean/x86_64.config .config
-          # 修复 vim-fuller 打包失败：运行时目录 usr/share/vim/vim82 仅由
-          # vim-runtime / vim-help 通过 installrtbase 生成；若只选中 vim-fuller
-          # 而未选中 vim-runtime，cp 会报 “No such file or directory” 使编译中断。
-          if grep -qE 'CONFIG_PACKAGE_vim(-full|-fuller)?=[ym]' .config; then
-            echo 'CONFIG_PACKAGE_vim-runtime=y' >> .config
-            echo 'CONFIG_PACKAGE_vim-help=y' >> .config
-          fi
           make defconfig
 
       - name: 下载编译所需源码
