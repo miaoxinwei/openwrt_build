@@ -85,9 +85,7 @@ jobs:
           rm -rf feeds/packages/lang/golang
           git clone https://github.com/sbwml/packages_lang_golang -b 25.x feeds/packages/lang/golang
           # 修复vim问题
-          perl -0777 -i -pe 's/\$\(CP\)\s+\$\(PKG_INSTALL_DIR\)\/usr\/share\/vim\/vim\$\(VIMVER\)\s+\\\s*\n\s*\$\(1\)\/usr\/share\/vim/\$(CP) \$(PKG_INSTALL_DIR)\/usr\/share\/vim\/* \$(1)\/usr\/share\/vim\//g' \
-          feeds/packages/utils/vim/Makefile
-          
+          sed -i 's|$(CP) $(PKG_INSTALL_DIR)/usr/share/vim/vim$(VIMVER) $(1)/usr/share/vim|$(CP) $(PKG_INSTALL_DIR)/usr/share/vim/* $(1)/usr/share/vim/|g' feeds/packages/utils/vim/Makefile          
           ./scripts/feeds install -a
 
       - name: config文件
