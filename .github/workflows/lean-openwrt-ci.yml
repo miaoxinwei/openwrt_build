@@ -91,6 +91,13 @@ jobs:
           cd openwrt
           rm -f .config*
           cp ../lean/x86_64.config .config
+          # 修复 vim-fuller 打包失败：运行时目录 usr/share/vim/vim82 仅由
+          # vim-runtime / vim-help 通过 installrtbase 生成；若只选中 vim-fuller
+          # 而未选中 vim-runtime，cp 会报 “No such file or directory” 使编译中断。
+          if grep -qE 'CONFIG_PACKAGE_vim(-full|-fuller)?=[ym]' .config; then
+            echo 'CONFIG_PACKAGE_vim-runtime=y' >> .config
+            echo 'CONFIG_PACKAGE_vim-help=y' >> .config
+          fi
           make defconfig
 
       - name: 下载编译所需源码
