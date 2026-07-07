@@ -37,6 +37,7 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
+          docker image prune -f
           sudo -E rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
           sudo -E apt-mark hold grub-efi-amd64-signed
           sudo -E apt -y update
@@ -95,7 +96,7 @@ jobs:
       - name: 下载编译所需源码
         run: |
           cd openwrt
-          make download -j8
+          make download -j16
           find dl -size -1024c -exec rm -f {} \;
 
       - name: 多线程编译
