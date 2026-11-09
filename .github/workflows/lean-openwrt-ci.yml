@@ -72,10 +72,11 @@ jobs:
           cd openwrt
           echo "src-git passwall_packages https://github.com/Openwrt-Passwall/openwrt-passwall-packages.git;main" > feeds.conf.default
           echo -e "src-git passwall_luci https://github.com/Openwrt-Passwall/openwrt-passwall.git;main" >> feeds.conf.default
-          echo -e "src-git packages https://github.com/coolsnowwolf/packages" >> feeds.conf.default
+          echo -e "src-git packages https://github.com/coolsnowwolf/packages.git" >> feeds.conf.default
           echo -e "src-git luci https://github.com/coolsnowwolf/luci.git;openwrt-25.12" >> feeds.conf.default
-          echo -e "src-git routing https://github.com/coolsnowwolf/routing" >> feeds.conf.default
+          echo -e "src-git routing https://github.com/coolsnowwolf/routing.git" >> feeds.conf.default
           echo -e "src-git telephony https://github.com/coolsnowwolf/telephony.git" >> feeds.conf.default
+          echo -e "src-git video https://github.com/coolsnowwolf/video" >> feeds.conf.default
 
           sed -i 's/6.12/6.18/g' target/linux/x86/Makefile
 
